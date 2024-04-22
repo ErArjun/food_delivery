@@ -2,12 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/components/my_button.dart';
 import 'package:food_delivery/components/my_textfield.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  final void Function()? onTap;
+  const LoginPage({
+    super.key,
+    required this.onTap,
+  });
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
 //text editing controller
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
-  LoginPage({super.key});
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,7 @@ class LoginPage extends StatelessWidget {
               obscureText: false,
             ),
 
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
 
             //password textfield
             MyTextField(
@@ -53,14 +63,35 @@ class LoginPage extends StatelessWidget {
               obscureText: true,
             ),
 
-            const SizedBox(height: 25),
+            const SizedBox(height: 10),
             //sign in button
             MyButton(
               onTap: () {},
               text: "Sign In",
             ),
 
+            const SizedBox(height: 25),
+
             //not a member? register here
+            Row(
+              children: [
+                Text("Not a member?",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                    )),
+                const SizedBox(width: 4),
+                GestureDetector(
+                  onTap: widget.onTap,
+                  child: Text(
+                    "Register now",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.inversePrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),
